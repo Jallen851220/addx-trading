@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADDX - 智能投資交易平台</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tradingview-widget/dist/tradingview-widget.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2C3E50;
+            --accent-color: #3498DB;
+            --background-light: #FFFFFF;
+            --background-dark: #1A1A1A;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #3498DB, #2ECC71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .widget {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .widget:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 日夜間模式切換按鈕 */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .market-data {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .market-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            flex: 1 1 200px;
+        }
+
+        .chart-container {
+            height: 400px;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .trading-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .order-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .indicator-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .indicator {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ADDX</div>
+        <nav>
+            <ul>
+                <li><a href="#market">市場概覽</a></li>
+                <li><a href="#trading">交易中心</a></li>
+                <li><a href="#portfolio">投資組合</a></li>
+                <li><a href="#signals">交易信號</a></li>
+                <li><a href="#settings">設置</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+        <div class="widget" id="market-overview">
+            <h2>市場概覽</h2>
+            <div class="market-data">
+                <div class="market-card">
+                    <h3>股票指數</h3>
+                    <div id="stock-indices"></div>
+                </div>
+                <div class="market-card">
+                    <h3>加密貨幣</h3>
+                    <div id="crypto-markets"></div>
+                </div>
+                <div class="market-card">
+                    <h3>商品期貨</h3>
+                    <div id="futures-markets"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget" id="trading-bot">
+            <h2>交易機器人</h2>
+            <div class="trading-controls">
+                <div class="order-form">
+                    <h3>交易設置</h3>
+                    <form id="trading-settings">
+                        <input type="number" placeholder="投資金額" required>
+                        <select name="strategy" required>
+                            <option value="macd_rsi">MACD + RSI策略</option>
+                            <option value="bollinger">布林通道策略</option>
+                            <option value="ma_cross">均線交叉策略</option>
+                        </select>
+                        <input type="number" placeholder="止損比例 %" required>
+                        <input type="number" placeholder="獲利目標 %" required>
+                        <button type="submit">啟動自動交易</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget" id="portfolio">
+            <h2>投資組合分析</h2>
+            <div class="chart-container" id="portfolio-chart"></div>
+            <div class="indicator-panel">
+                <!-- 動態添加指標 -->
+            </div>
+        </div>
+
+        <div class="widget" id="trading-signals">
+            <h2>實時交易信號</h2>
+            <div id="signal-list"></div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/tradingview-widget/dist/tradingview-widget.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html> 
